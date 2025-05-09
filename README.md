@@ -15,7 +15,7 @@ The Position Size Calculator is a Raycast extension designed to help traders qui
 ## Installation
 
 1.  Ensure you have Raycast installed on your macOS.
-2.  (Once published) Search for "Position Size Calculator" in the Raycast Store and click "Install".
+2.  Search for "Position Size Calculator" in the Raycast Store and click "Install".
 3.  (For local development) Clone the repository, navigate to the project directory, run `npm install` (or `yarn install`), and then `npm run dev` (or `yarn dev`).
 
 ## How to Use
@@ -31,8 +31,8 @@ Before your first use, or anytime you want to change your defaults, you can set 
 1.  Open Raycast Settings (Type "Extensions" in Raycast, select the "Extensions" tab).
 2.  Find "Position Size Calculator" in the list.
 3.  Configure the following:
-    *   **Default Capital:** Your total trading capital (e.g., `200000`).
-    *   **Default Risk per Trade (%):** The percentage of your capital you are willing to risk on a single trade (e.g., `1.0` for 1%).
+    *   **Trading Capital:** Your total trading capital (e.g., `200000`).
+    *   **Risk per Trade (%):** The percentage of your capital you are willing to risk on a single trade (e.g., `1.0` for 1%).
 
 These preferences will be used as the base for calculations unless overridden by specific modes (like "Fixed Risk ₹").
 

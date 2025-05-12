@@ -67,15 +67,10 @@ const ResultsView: React.FC<ResultsViewProps> = ({ results }) => {
           accessories={[{ text: item.value }]}
           actions={
             <ActionPanel>
-              <Action.CopyToClipboard
-                title={`Copy ${item.title}`}
-                content={item.copyValue ?? item.value}
-              />
+              <Action.CopyToClipboard title={`Copy ${item.title}`} content={item.copyValue ?? item.value} />
               <Action.CopyToClipboard
                 title="Copy All Results"
-                content={items
-                  .map((i) => `${i.title}: ${i.copyValue ?? i.value}`)
-                  .join("\n")}
+                content={items.map((i) => `${i.title}: ${i.copyValue ?? i.value}`).join("\n")}
               />
             </ActionPanel>
           }

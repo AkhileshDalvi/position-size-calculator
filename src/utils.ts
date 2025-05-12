@@ -1,20 +1,8 @@
 import { CalculationInputs, CalculationResult } from "./types";
 
-export function calculatePositionDetails(
-  inputs: CalculationInputs,
-): CalculationResult | { error: string } {
-  const {
-    mode,
-    capital,
-    riskPercent,
-    entry,
-    slPrice,
-    targetPrice,
-    rrr,
-    slPercent,
-    targetPercent,
-    fixedRiskAmt,
-  } = inputs;
+export function calculatePositionDetails(inputs: CalculationInputs): CalculationResult | { error: string } {
+  const { mode, capital, riskPercent, entry, slPrice, targetPrice, rrr, slPercent, targetPercent, fixedRiskAmt } =
+    inputs;
 
   let sl: number = 0;
   let target: number = 0;
@@ -25,10 +13,7 @@ export function calculatePositionDetails(
   if (isNaN(capital) || capital <= 0) return { error: "Invalid Capital" };
 
   // Risk Percent is not used in "Fixed Risk ₹" mode for riskAmount calculation
-  if (
-    mode !== "Fixed Risk ₹" &&
-    (isNaN(riskPercent) || riskPercent <= 0)
-  ) {
+  if (mode !== "Fixed Risk ₹" && (isNaN(riskPercent) || riskPercent <= 0)) {
     return { error: "Invalid Risk Percentage" };
   }
 
@@ -39,11 +24,7 @@ export function calculatePositionDetails(
         if (typeof slPrice === "undefined" || isNaN(slPrice) || slPrice <= 0) {
           return { error: "Stop Loss Price is invalid or missing" };
         }
-        if (
-          typeof targetPrice === "undefined" ||
-          isNaN(targetPrice) ||
-          targetPrice <= 0
-        ) {
+        if (typeof targetPrice === "undefined" || isNaN(targetPrice) || targetPrice <= 0) {
           return { error: "Target Price is invalid or missing" };
         }
         if (entry <= slPrice) {
@@ -71,18 +52,10 @@ export function calculatePositionDetails(
         break;
 
       case "% SL/Target":
-        if (
-          typeof slPercent === "undefined" ||
-          isNaN(slPercent) ||
-          slPercent <= 0
-        ) {
+        if (typeof slPercent === "undefined" || isNaN(slPercent) || slPercent <= 0) {
           return { error: "Stop Loss % is invalid or missing" };
         }
-        if (
-          typeof targetPercent === "undefined" ||
-          isNaN(targetPercent) ||
-          targetPercent <= 0
-        ) {
+        if (typeof targetPercent === "undefined" || isNaN(targetPercent) || targetPercent <= 0) {
           return { error: "Target % is invalid or missing" };
         }
         sl = entry * (1 - slPercent / 100);
@@ -96,11 +69,7 @@ export function calculatePositionDetails(
         if (typeof slPrice === "undefined" || isNaN(slPrice) || slPrice <= 0) {
           return { error: "Stop Loss Price is invalid or missing" };
         }
-        if (
-          typeof fixedRiskAmt === "undefined" ||
-          isNaN(fixedRiskAmt) ||
-          fixedRiskAmt <= 0
-        ) {
+        if (typeof fixedRiskAmt === "undefined" || isNaN(fixedRiskAmt) || fixedRiskAmt <= 0) {
           return { error: "Fixed Risk Amount is invalid or missing" };
         }
         // RRR is needed for target calculation in this mode as per our design
@@ -114,18 +83,18 @@ export function calculatePositionDetails(
         target = entry + (entry - sl) * rrr;
         break;
 
-      default:
+      default: {
         // Should not happen if mode is correctly typed
         const exhaustiveCheck: never = mode;
         return { error: `Unknown calculation mode: ${exhaustiveCheck}` };
+      }
     }
 
     // --- Core Calculations ---
     const riskPerShare = entry - sl;
     if (riskPerShare <= 0) {
       return {
-        error:
-          "Risk per share is zero or negative. Check Entry and Stop Loss.",
+        error: "Risk per share is zero or negative. Check Entry and Stop Loss.",
       };
     }
 
@@ -179,7 +148,8 @@ export function calculatePositionDetails(
 // Helper to format currency
 export const formatCurrency = (value: number): string => {
   if (isNaN(value)) return "N/A";
-  return value.toLocaleString("en-IN", { // Example: Indian Rupee format
+  return value.toLocaleString("en-IN", {
+    // Example: Indian Rupee format
     style: "currency",
     currency: "INR",
     minimumFractionDigits: 2,

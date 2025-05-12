@@ -1,29 +1,11 @@
 // src/index.tsx
 import React, { useState } from "react";
-import {
-  Form,
-  ActionPanel,
-  Action,
-  getPreferenceValues,
-  showToast,
-  Toast,
-  useNavigation,
-} from "@raycast/api";
-import {
-  CalculationMode,
-  Preferences,
-  CalculationInputs,
-  FormValues,
-} from "./types";
+import { Form, ActionPanel, Action, getPreferenceValues, showToast, Toast, useNavigation } from "@raycast/api";
+import { CalculationMode, Preferences, CalculationInputs, FormValues } from "./types";
 import { calculatePositionDetails } from "./utils";
 import ResultsView from "./components/ResultsView";
 
-const modes: CalculationMode[] = [
-  "Fixed Price",
-  "RRR-Based",
-  "% SL/Target",
-  "Fixed Risk ₹",
-];
+const modes: CalculationMode[] = ["Fixed Price", "RRR-Based", "% SL/Target", "Fixed Risk ₹"];
 
 export default function Command() {
   const { push } = useNavigation();
@@ -80,7 +62,6 @@ export default function Command() {
       }
     };
 
-
     checkNumeric("entry");
 
     switch (formValues.mode) {
@@ -88,20 +69,21 @@ export default function Command() {
         checkNumeric("slPrice");
         checkNumeric("targetPrice");
         if (parseFloat(formValues.entry) <= parseFloat(formValues.slPrice)) {
-            newErrors.slPrice = (newErrors.slPrice ? newErrors.slPrice + "; " : "") + "SL must be below Entry";
-            isValid = false;
+          newErrors.slPrice = (newErrors.slPrice ? newErrors.slPrice + "; " : "") + "SL must be below Entry";
+          isValid = false;
         }
         if (parseFloat(formValues.entry) >= parseFloat(formValues.targetPrice)) {
-            newErrors.targetPrice = (newErrors.targetPrice ? newErrors.targetPrice + "; " : "") + "Target must be above Entry";
-            isValid = false;
+          newErrors.targetPrice =
+            (newErrors.targetPrice ? newErrors.targetPrice + "; " : "") + "Target must be above Entry";
+          isValid = false;
         }
         break;
       case "RRR-Based":
         checkNumeric("slPrice");
         checkNumeric("rrr");
-         if (parseFloat(formValues.entry) <= parseFloat(formValues.slPrice)) {
-            newErrors.slPrice = (newErrors.slPrice ? newErrors.slPrice + "; " : "") + "SL must be below Entry";
-            isValid = false;
+        if (parseFloat(formValues.entry) <= parseFloat(formValues.slPrice)) {
+          newErrors.slPrice = (newErrors.slPrice ? newErrors.slPrice + "; " : "") + "SL must be below Entry";
+          isValid = false;
         }
         break;
       case "% SL/Target":
@@ -112,9 +94,9 @@ export default function Command() {
         checkNumeric("slPrice");
         checkNumeric("fixedRiskAmt");
         checkNumeric("rrr"); // RRR needed for target calc
-         if (parseFloat(formValues.entry) <= parseFloat(formValues.slPrice)) {
-            newErrors.slPrice = (newErrors.slPrice ? newErrors.slPrice + "; " : "") + "SL must be below Entry";
-            isValid = false;
+        if (parseFloat(formValues.entry) <= parseFloat(formValues.slPrice)) {
+          newErrors.slPrice = (newErrors.slPrice ? newErrors.slPrice + "; " : "") + "SL must be below Entry";
+          isValid = false;
         }
         break;
     }
@@ -133,11 +115,19 @@ export default function Command() {
     const riskPercent = parseFloat(preferences.riskPercent);
 
     if (isNaN(capital) || capital <= 0) {
-      showToast(Toast.Style.Failure, "Invalid Preference: Capital", "Please set a valid Capital in extension preferences.");
+      showToast(
+        Toast.Style.Failure,
+        "Invalid Preference: Capital",
+        "Please set a valid Capital in extension preferences.",
+      );
       return;
     }
     if (isNaN(riskPercent) || riskPercent <= 0) {
-      showToast(Toast.Style.Failure, "Invalid Preference: Risk %", "Please set a valid Risk % in extension preferences.");
+      showToast(
+        Toast.Style.Failure,
+        "Invalid Preference: Risk %",
+        "Please set a valid Risk % in extension preferences.",
+      );
       return;
     }
 

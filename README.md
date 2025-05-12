@@ -12,6 +12,17 @@ The Position Size Calculator is a Raycast extension designed to help traders qui
 - **Easy Input:** User-friendly form with inline guidance for each input field.
 - **Copy to Clipboard:** Quickly copy individual results or all calculated details.
 
+## Screenshots
+
+![position-size-calculator-1](metadata/position-size-calculator-1.png)
+![position-size-calculator-2](metadata/position-size-calculator-2.png)
+![position-size-calculator-3](metadata/position-size-calculator-3.png)
+![position-size-calculator-4](metadata/position-size-calculator-4.png)
+![position-size-calculator-5](metadata/position-size-calculator-5.png)
+![position-size-calculator-6](metadata/position-size-calculator-6.png)
+![position-size-calculator-7](metadata/position-size-calculator-7.png)
+![position-size-calculator-8](metadata/position-size-calculator-8.png)
+
 ## Installation
 
 1.  Ensure you have Raycast installed on your macOS.

@@ -4,6 +4,7 @@ import { Form, ActionPanel, Action, getPreferenceValues, showToast, Toast, useNa
 import { CalculationMode, Preferences, CalculationInputs, FormValues } from "./types";
 import { calculatePositionDetails } from "./utils";
 import ResultsView from "./components/ResultsView";
+import { showFailureToast } from "@raycast/utils";
 
 const modes: CalculationMode[] = ["Fixed Price", "RRR-Based", "% SL/Target", "Fixed Risk"];
 
@@ -107,7 +108,7 @@ export default function Command() {
 
   const handleSubmit = () => {
     if (!validateInputs()) {
-      showToast(Toast.Style.Failure, "Validation Failed", "Please check the input fields.");
+      showFailureToast("Please check the input fields.", { title: "Validation Failed" });
       return;
     }
 
@@ -147,7 +148,7 @@ export default function Command() {
     const result = calculatePositionDetails(inputs);
 
     if ("error" in result) {
-      showToast(Toast.Style.Failure, "Calculation Error", result.error);
+      showFailureToast(result.error, { title: "Calculation Error" });
     } else {
       showToast(Toast.Style.Success, "Calculation Complete");
       push(<ResultsView results={result} />);

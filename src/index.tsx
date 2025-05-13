@@ -5,7 +5,7 @@ import { CalculationMode, Preferences, CalculationInputs, FormValues } from "./t
 import { calculatePositionDetails } from "./utils";
 import ResultsView from "./components/ResultsView";
 
-const modes: CalculationMode[] = ["Fixed Price", "RRR-Based", "% SL/Target", "Fixed Risk ₹"];
+const modes: CalculationMode[] = ["Fixed Price", "RRR-Based", "% SL/Target", "Fixed Risk"];
 
 export default function Command() {
   const { push } = useNavigation();
@@ -90,7 +90,7 @@ export default function Command() {
         checkNumeric("slPercent");
         checkNumeric("targetPercent");
         break;
-      case "Fixed Risk ₹":
+      case "Fixed Risk":
         checkNumeric("slPrice");
         checkNumeric("fixedRiskAmt");
         checkNumeric("rrr"); // RRR needed for target calc
@@ -268,7 +268,7 @@ export default function Command() {
         </>
       )}
 
-      {formValues.mode === "Fixed Risk ₹" && (
+      {formValues.mode === "Fixed Risk" && (
         <>
           <Form.TextField
             id="slPrice"
@@ -282,7 +282,7 @@ export default function Command() {
           />
           <Form.TextField
             id="fixedRiskAmt"
-            title="Fixed Risk Amount (₹)" // Adjust currency symbol as needed
+            title="Fixed Risk Amount" // Adjust currency symbol as needed
             placeholder="e.g., 2000"
             info="The exact currency amount you want to risk on this trade."
             value={formValues.fixedRiskAmt}
